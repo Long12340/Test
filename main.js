@@ -6,6 +6,8 @@
 
     const photoSources = Array.from({ length: 10 }, (_, index) => `./photos/${index + 1}.jpg`);
     const photoCount = 26;
+    // Tiêu đề bắt đầu hiện ở 3.1s và kết thúc sau 2s; ảnh bay lên ngay sau đó.
+    const titleRevealTime = 5.2;
 
     for (let i = 0; i < photoCount; i++) {
         const photo = document.createElement("img");
@@ -16,13 +18,13 @@
 
         const depth = Math.random(); // 0 = xa, 1 = gần
         const size = Math.round(38 + depth * 92);
-        photo.style.left = `${Math.random() * 94}%`;
-        photo.style.top = `${Math.random() * 88}%`;
+        photo.style.setProperty("--photo-left", `${Math.random() * 94}%`);
         photo.style.setProperty("--photo-size", `${size}px`);
         photo.style.setProperty("--photo-opacity", (0.22 + depth * 0.62).toFixed(2));
         photo.style.setProperty("--photo-blur", `${((1 - depth) * 1.6).toFixed(1)}px`);
-        photo.style.setProperty("--photo-duration", `${(3.5 + Math.random() * 5.5).toFixed(2)}s`);
-        photo.style.setProperty("--photo-delay", `${(-Math.random() * 8).toFixed(2)}s`);
+        photo.style.setProperty("--photo-duration", `${(10 + Math.random() * 8).toFixed(2)}s`);
+        // Lần đầu chỉ xuất hiện sau khi chữ Women Day hiện xong; các ảnh lệch nhịp nhẹ.
+        photo.style.setProperty("--photo-delay", `${(titleRevealTime + i * 0.16).toFixed(2)}s`);
         photo.style.setProperty("--photo-rotate", `${Math.round(Math.random() * 36 - 18)}deg`);
         photo.style.setProperty("--photo-drift", `${Math.round(Math.random() * 42 - 21)}px`);
         layer.appendChild(photo);
